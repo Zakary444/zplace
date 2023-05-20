@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>z-place</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('gif/fire.gif');
+            background-size: cover;
+            background-position: center center;
+            overflow: hidden;
+            /* Optional: This will hide any content going out of your page. */
+        }
+        
+        #canvas {
+            border: 1px solid lightgray;
+            display: block;
+            margin: 0 auto;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            background-color: transparent;
+        }
+        
+        @keyframes flash {
+            0% {
+                color: white;
+            }
+            50% {
+                color: black;
+            }
+            100% {
+                color: white;
+            }
+        }
+        
+        #cooldown-indicator {
+            animation: flash 1s linear infinite;
+            margin-bottom: 2em;
+        }
+        
+        #color-picker-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        
+        #color-picker {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: left;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        #user-list-container {
+            width: 200px;
+            /* adjust as necessary */
+            height: 100%;
+            overflow-y: auto;
+            /* adds a scrollbar if necessary */
+            background: #eee;
+            /* just to distinguish the sidebar from the main content */
+        }
+        
+        #coordinates {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 30px;
+            z-index: 100;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            /* Adjust this value according to your needs */
+            .color-option {
+                width: 60px;
+                /* Increased size for mobile */
+                height: 60px;
+                /* Increased size for mobile */
+            }
+            #color-picker {
+                width: 50%;
+                /* Reduced width to add padding */
+                margin: 0 auto;
+                /* Center the color picker */
+                margin-bottom: 93vh;
+            }
+        }
+        
+        @media screen and (min-height: 1145px) {
+            #canvas {
+                height: 90vh;
+                /* or whatever value you want */
+                width: 90vh;
+                /* making this the same as height to keep the aspect ratio */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <span id="coordinates">X: 0, Y: 0</span>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <input type="color" id="color-picker" value="#000000">
+    <div id="color-picker-container">
+        <div class="color-option" style="background: red;"></div>
+        <div class="color-option" style="background: orange;"></div>
+        <div class="color-option" style="background: yellow;"></div>
+        <div class="color-option" style="background: green;"></div>
+        <div class="color-option" style="background: blue;"></div>
+        <div class="color-option" style="background: indigo;"></div>
+        <div class="color-option" style="background: violet;"></div>
+    </div>
+    <div id="cooldown-indicator" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); padding: 10px 20px; background: red; color: white;">Cooldown active!</div>
+    <div id="hit-counter" style="position: absolute; top: 0; left: 0;">Hits: 0</div>
+
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>
