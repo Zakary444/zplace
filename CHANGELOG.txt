@@ -1,0 +1,27 @@
+Set Up the Server: I started by getting a Node.js server up and running. I used Express, Socket.IO, and mysql2 for this. It's all running on a Linode server and listens on port 3000.
+
+Database Time: I set up a MySQL database and made a table called 'pixels'. It's got 'x', 'y', and 'color' columns for the position and color of each pixel.
+
+Made a Web App: I built an Express.js web app to serve a simple HTML page, along with some JavaScript and CSS files for the client side.
+
+Real-Time Communication: I used Socket.IO for real-time back-and-forth between the server and client. Whenever someone draws a pixel, it sends a 'draw_pixel' event to the server, which then tells all the other clients about it.
+
+Pixel Drawing: I added a way to listen for 'click' events on the canvas. When someone clicks, it sends a 'draw_pixel' event to the server with the pixel's position and color.
+
+Talking to the Database: When the server gets a 'draw_pixel' event, it changes the color of that pixel in the 'pixels' database table and updates its own copy of the canvas. Whenever a new client connects, it sends them the current canvas state.
+
+Cooldown: To keep people from spamming pixels, I added a 5-second cooldown between pixel drawings.
+
+Debugging: I used console logs and checked for errors to debug stuff like database connections, pixel updates, and database initialization.
+
+User Interface: I added a color picker for choosing pixel colors and made a list to show all the connected users. I also added a cooldown message to let users know if they're trying to draw a pixel too soon.
+
+Got a Domain: I set up a Google Domain to point to my Linode server.
+
+Device Info: I used a library called 'ua-parser-js' to figure out the device type of each client from their user-agent string.
+
+Bigger Grid: I changed the grid size from 30x30 to 70x70. I had to change some server-side and client-side code and update the 'x' and 'y' columns in the 'pixels' table to handle values up to 70.
+
+Styling: I made the background of the page black and added a full-screen background gif.
+
+Deploying Changes: I used SCP to upload changes to the Linode server. Then I switched to rsync so I only had to transfer the files that had changed.
